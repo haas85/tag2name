@@ -2,11 +2,11 @@ __author__ = 'haas'
 
 import os
 import sys
-# import eyed3.core as eyeD3
+from shutil import copyfile
 from eyed3.mp3 import Mp3AudioFile
 
 BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__)))
-INPUT_DIR = os.path.join(BASE_DIR, 'test_files')
+INPUT_DIR = os.path.join(BASE_DIR, 'input')
 OUTPUT_DIR = os.path.join(BASE_DIR, 'output')
 
 if __name__ == "__main__":
@@ -29,25 +29,27 @@ if __name__ == "__main__":
             new_name = ''
 
             if mp3_file.tag.album and mp3_file.tag.album != '':
-                new_name += mp3_file.tag.album  + '-'
+                # new_name += mp3_file.tag.album + '-'
                 _temp_dir = os.path.join(_temp_dir, mp3_file.tag.album)
 
             if mp3_file.tag.artist and mp3_file.tag.artist != '':
-                new_name += mp3_file.tag.artist + '-'
+                # new_name += mp3_file.tag.artist + '-'
                 _temp_dir = os.path.join(_temp_dir, mp3_file.tag.artist)
 
             if not os.path.exists(_temp_dir):
                 os.makedirs(_temp_dir)
 
             if mp3_file.tag.title and mp3_file.tag.title != '':
-                new_name += mp3_file.tag.title  + '-'
+                # new_name += mp3_file.tag.title + '-'
+                new_name += mp3_file.tag.title + '.mp3'
 
             if len(new_name) > 0:
-                new_name = new_name[:-1] + '.mp3'
+                # new_name = new_name[:-1] + '.mp3'
+                copyfile(_path, os.path.join(_temp_dir, new_name))
                 print new_name
                 print "\n"
-        except Exception:
-            pass
+        except Exception as ex:
+            print ex
 
 
 
