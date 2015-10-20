@@ -20,11 +20,13 @@ import logging
 
 logging.basicConfig()
 
+file_logging = logging.FileHandler('logfile.log')
+
 DEFAULT_FORMAT = '%(name)s:%(levelname)s: %(message)s'
 MAIN_LOGGER = "eyed3"
 
 # Add some levels
-logging.VERBOSE = logging.DEBUG + 1
+logging.VERBOSE = logging.DEBUG
 logging.addLevelName(logging.VERBOSE, "VERBOSE")
 
 class Logger(logging.Logger):
@@ -47,6 +49,7 @@ logging.setLoggerClass(Logger)
 def _initLogging():
     '''initialize the default logger with console output'''
     log = logging.getLogger(MAIN_LOGGER)
+    log.addHandler(file_logging)
     # Don't propgate base 'eyed3'
     log.propagate = False
 
