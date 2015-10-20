@@ -41,11 +41,11 @@ if __name__ == "__main__":
 
                 new_name = mp3_name
 
-                if mp3_file.tag.album and mp3_file.tag.album != '':
-                    _temp_dir = os.path.join(_temp_dir, mp3_file.tag.album)
-
                 if mp3_file.tag.artist and mp3_file.tag.artist != '':
                     _temp_dir = os.path.join(_temp_dir, mp3_file.tag.artist)
+
+                if mp3_file.tag.album and mp3_file.tag.album != '':
+                    _temp_dir = os.path.join(_temp_dir, mp3_file.tag.album)
 
                 if not os.path.exists(_temp_dir):
                     os.makedirs(_temp_dir)
@@ -53,6 +53,8 @@ if __name__ == "__main__":
                 if mp3_file.tag.title and mp3_file.tag.title != '':
                     if rename:
                         new_name = mp3_file.tag.title + '.mp3'
+
+                log.warning("File name: %s" % new_name)
 
                 if len(new_name) > 0:
                     copyfile(_path, os.path.join(_temp_dir, new_name))
